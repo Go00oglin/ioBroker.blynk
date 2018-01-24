@@ -1,0 +1,33 @@
+{
+	"common" : {
+		"name": "blynk",
+		"version": "0.0.2",
+		"title": "Adapter Blynk",
+		"desc": "It is an adapter for Blynk.cc and allows update virtual pins",
+		"keywords": [
+			"Blynk.cc"
+		],
+		"platform": "Javascript/Node.js",
+		"loglevel": "info",
+		"mode": "daemon",
+		"read": "true",
+		"write": "true",
+		"icon": "blynk.png",
+		"extIcon" : "https://raw.githubusercontent.com/Go00oglin/ioBroker.blynk/master/admin/blynk.png",
+		"type": "iot-systems",
+		"main": "main.js",
+		"license": "MIT"
+	},
+	"native" : {
+		"server": "",
+		"port": "",
+		"auth": "0000000000000000000",
+		"interval":"500",
+		"vpins": "0-8;20"
+		
+	},
+	"objects": [
+    ],
+    "instanceObjects": [
+    ]
+}

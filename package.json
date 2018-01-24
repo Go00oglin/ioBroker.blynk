@@ -1,0 +1,32 @@
+{
+  "name": "iobroker.blynk",
+  "version": "0.0.2",
+  "description": "Adapter Blynk",
+  "author": "Singib",
+  "homepage": "https://github.com/Go00oglin/ioBroker.blynk",
+  "readme": "https://github.com/Go00oglin/ioBroker.blynk/blob/master/README.md",
+  "keywords": ["Blynk.cc"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Go00oglin/ioBroker.blynk"
+  },
+  "dependencies": {
+      "blynk-library":"~0.4.7"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.4",
+    "grunt-replace": "~0.7.6",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-jscs": "~0.6.1",
+    "grunt-http": "~1.4.1",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-compress": "~0.8.0",
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-exec": "~0.4.5"
+  },
+  "bugs": {
+    "url": "https://github.com/Go00oglin/ioBroker.blynk/issues"
+  },
+  "main": "main.js",
+  "license": "MIT"
+}

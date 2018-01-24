@@ -1,0 +1,92 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="../../lib/css/themes/jquery-ui/redmond/jquery-ui.min.css"/>
+<script type="text/javascript" src="../../lib/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../socket.io/socket.io.js"></script>
+<script type="text/javascript" src="../../lib/js/jquery-ui-1.10.3.full.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="../../css/adapter.css"/>
+<script type="text/javascript" src="../../js/translate.js"></script>
+<script type="text/javascript" src="../../js/adapter-settings.js"></script>
+<script type="text/javascript" src="words.js"></script>
+
+<script type="text/javascript">
+    var devices = [];
+    function setValue(id, value, onChange) {
+        var $value = $('#' + id + '.value');
+        if ($value.attr('type') === 'checkbox') {
+            $value.prop('checked', value).change(function() {
+                onChange();
+            });
+        } else {
+            $value.val(value).change(function() {
+                onChange();
+            }).keyup(function() {
+                // Check that only numbers entered
+                if ($(this).hasClass('number')) {
+                    var val = $(this).val();
+                    if (val) {
+                        var newVal = '';
+                        for (var i = 0; i < val.length; i++) {
+                            if (val[i] >= '0' && val[i] <= '9') {
+                                newVal += val[i];
+                            }
+                        }
+                        if (val != newVal) $(this).val(newVal);
+                    }
+                }
+                onChange();
+            });
+        }
+    }
+    // the function loadSettings has to exist ...
+    function load(settings, onChange) {
+        if (!settings) return;
+        if (settings.noHostname === undefined) settings.noHostname = false;
+        devices = settings.devices || [];
+        for (var key in settings) {
+            if (settings.hasOwnProperty(key)) setValue(key, settings[key], onChange);
+        }
+        values2table('values', devices, onChange);
+        onChange(false);
+    }
+    function save(callback) {
+        var obj = {};
+        $('.value').each(function () {
+            var $this = $(this);
+            if ($this.attr('type') === 'checkbox') {
+                obj[$this.attr('id')] = $this.prop('checked');
+            } else {
+                obj[$this.attr('id')] = $this.val();
+            }
+        });
+        // Get edited table
+        obj.devices = table2values('values');
+        callback(obj);
+    }
+</script>
+</head>
+<body>
+<!-- you have to put your config page in a div with id adapter-container -->
+<div id="adapter-container">
+
+    <table><tr>
+        <td><img src="blynk.png" width="64px" height="64px"></td>
+        <td style="padding-top: 20px;padding-left: 10px"><h3 class="translate">BLYNK adapter settings</h3></td>
+    </tr></table>
+
+    <h4 class="translate">Connection settings</h4>
+    <table>
+        <tr><td><label class="translate" for="server">Server (empty for blynk-cloud.com):</label></td><td class="admin-icon"></td><td><input class="value" id="server" /></td></tr>
+        <tr><td><label class="translate" for="port">Port number (empty for default 8442):</label></td><td class="admin-icon"></td><td><input class="value number" id="port" size="6" /></td></tr>
+		<tr><td><label class="translate" for="auth">Authentication string:</label></td><td class="admin-icon"></td><td><input class="value" id="auth" /></td></tr>
+		<tr><td><label class="translate" for="interval">Poll interval (msec):</label></td><td class="admin-icon"></td><td><input class="value number" id="interval" /></td></tr>
+    </table>
+    <h4 class="translate">Virtual pins</h4>
+	<div class="translate">
+		It is possible to operate 0-127 virtual pins. Please specify actualy suitable set of pins using combinations of intervals (like 1-4) and/or separated values divided by semicolon (;)
+	</div>
+	<div><input class="value" id="vpins" /></div>
+</div>
+</body>
+</html>
